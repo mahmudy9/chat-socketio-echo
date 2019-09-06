@@ -1792,6 +1792,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -1825,9 +1829,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      messages: [],
+      moody: ''
+    };
+  },
+  methods: {
+    submit: function submit() {
+      axios.post('/api/sendevent', {
+        message: this.moody
+      }).then(function (res) {//console.log(res);
+      })["catch"](function (err) {
+        console.error(err);
+      });
+    }
+  },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    var _this = this;
+
+    Echo.channel('my-channel').listen('.chat.event', function (e) {
+      //console.log(e);
+      _this.messages.push({
+        m: e.message
+      });
+
+      _this.moody = "";
+    });
   }
 });
 
@@ -1858,9 +1901,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      messages: [],
+      moody: ''
+    };
+  },
+  methods: {
+    submit: function submit() {
+      axios.post('/api/sendevent', {
+        message: this.moody
+      }).then(function (res) {//console.log(res);
+      })["catch"](function (err) {
+        console.error(err);
+      });
+    }
+  },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    var _this = this;
+
+    Echo.channel('my-channel').listen('.chat.event', function (e) {
+      //console.log(e);
+      _this.messages.push({
+        m: e.message
+      });
+
+      _this.moody = "";
+    });
   }
 });
 
@@ -47287,32 +47369,35 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Example Component")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
               _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
+                "\n                    I'm an example component.\n                    "
+              ),
+              _c("br"),
+              _vm._v(" "),
+              _c("router-link", { attrs: { to: "/user1" } }, [_vm._v("User1")]),
+              _vm._v(" "),
+              _c("router-link", { attrs: { to: "/user2" } }, [_vm._v("User2")])
+            ],
+            1
+          )
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -47334,32 +47419,85 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Example Component")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
               _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
+                "\n                    I'm a user1 component.\n                    "
+              ),
+              _c("hr"),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "ul",
+                _vm._l(_vm.messages, function(m) {
+                  return _c("li", [_vm._v(_vm._s(m.m))])
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.submit($event)
+                    }
+                  }
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.moody,
+                        expression: "moody"
+                      }
+                    ],
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.moody },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.moody = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("button", { attrs: { type: "submit" } }, [_vm._v("Send")])
+                ]
+              ),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("router-link", { attrs: { to: "/testsocket" } }, [
+                _vm._v("back")
+              ])
+            ],
+            1
+          )
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -47381,32 +47519,85 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Example Component")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
               _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
+                "\n                    I'm a user2 component.\n                    "
+              ),
+              _c("hr"),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "ul",
+                _vm._l(_vm.messages, function(m) {
+                  return _c("li", [_vm._v(_vm._s(m.m))])
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.submit($event)
+                    }
+                  }
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.moody,
+                        expression: "moody"
+                      }
+                    ],
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.moody },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.moody = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("button", { attrs: { type: "submit" } }, [_vm._v("Send")])
+                ]
+              ),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("router-link", { attrs: { to: "/testsocket" } }, [
+                _vm._v("back")
+              ])
+            ],
+            1
+          )
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -62571,12 +62762,14 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.component('user1-component', __webpack_require__(/*! ./components/user1Component.vue */ "./resources/js/components/user1Component.vue"));
+Vue.component('user2-component', __webpack_require__(/*! ./components/user2Component.vue */ "./resources/js/components/user2Component.vue"));
 
 
 
 var routes = [{
   name: "example",
-  path: "/",
+  path: "/testsocket",
   component: _components_ExampleComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
 }, {
   name: "user1",
@@ -62592,9 +62785,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   routes: routes
 });
 var app = new Vue({
-  el: '#app',
   router: router
-});
+}).$mount('#app');
 
 /***/ }),
 
@@ -62884,8 +63076,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/phplaravel/code/webSockets/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/phplaravel/code/webSockets/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/mahmud/code/WebSockets/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/mahmud/code/WebSockets/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ }),

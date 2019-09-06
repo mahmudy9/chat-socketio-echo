@@ -34,15 +34,16 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+Vue.component('user1-component' , require('./components/user1Component.vue'));
+Vue.component('user2-component' , require('./components/user2Component.vue'));
 import user1Component from './components/user1Component.vue';
 import user2Component from './components/user2Component.vue';
 import exampleComponent from './components/ExampleComponent.vue';
-let routes = [
+var routes = [
 {
     name: "example",
-    path: "/",
-        component: exampleComponent
+        path: "/testsocket",
+    component: exampleComponent
 },
 {
     name:"user1",
@@ -56,6 +57,5 @@ let routes = [
 }];
 const router = new VueRouter({ mode: 'history', routes: routes });
 const app = new Vue({
-    el: '#app',
-    router: router
-});
+    router
+}).$mount('#app')

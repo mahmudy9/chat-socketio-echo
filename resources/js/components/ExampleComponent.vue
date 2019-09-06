@@ -7,7 +7,11 @@
 
                     <div class="card-body">
                         I'm an example component.
+                        <br>
+                        <router-link to="/user1">User1</router-link>
+                        <router-link to="/user2">User2</router-link>
                     </div>
+
                 </div>
             </div>
         </div>

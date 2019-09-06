@@ -14,7 +14,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 class ChatEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    protected $message;
+    public $message;
     /**
      * Create a new event instance.
      *
@@ -32,6 +32,12 @@ class ChatEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('my.channel');
+        return new Channel('my-channel');
     }
+
+    public function broadcastAs()
+    {
+        return 'chat.event';
+    }
+
 }
